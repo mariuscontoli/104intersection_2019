@@ -16,7 +16,7 @@ $(NAME): $(SRC)
 	chmod +x 104intersection
 
 clean:
-	chmod -x 103cipher
+	chmod -x 104intersection
 	mv 104intersection 104intersection.py
 
 fclean: clean

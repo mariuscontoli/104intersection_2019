@@ -5,17 +5,40 @@ import sys
 import math
 
 opt = int(sys.argv[1])
-xp = int(sys.argv[2])
-yp = int(sys.argv[3])
-zp = int(sys.argv[4])
-xv = int(sys.argv[5])
-yv = int(sys.argv[6])
-zv = int(sys.argv[7])
-p = int(sys.argv[8])
+xp = float(sys.argv[2])
+yp = float(sys.argv[3])
+zp = float(sys.argv[4])
+xv = float(sys.argv[5])
+yv = float(sys.argv[6])
+zv = float(sys.argv[7])
+p = float(sys.argv[8])
+    
+def result(delta, a, _b) :
+    if delta < 0 :
+        print("No intersection point.")
+    elif delta == 0 :
+        print("1 intersection point:")
+        t = (-_b / (2 * a))
+        xx = xp + xv * t
+        yy = yp + yv * t
+        zz = zp + zv * t
+        print("({0:.3f}, {1:.3f}, {2:.3f})".format(xx, yy, zz))
+    elif delta > 0 :
+        print("2 intersection points:")
+        t = (-_b + math.sqrt(delta) / (2 * a))
+        xx = xp + xv * t
+        yy = yp + yv * t
+        zz = zp + zv * t
+        print("({0:.3f}, {1:.3f}, {2:.3f})".format(xx, yy, zz))
+        t = (-_b - math.sqrt(delta) / (2 * a))
+        xx = xp + xv * t
+        yy = yp + yv * t
+        zz = zp + zv * t
+        print("({0:.3f}, {1:.3f}, {2:.3f})".format(xx, yy, zz))
 
 def sphere() :
     print("Sphere of radius", p)
-    print("Line passing through the point (",xp,", ",yp,", ",zp,") and parallel to the vector (",xv,", ",yv,", ",zv,")", sep="")
+    print("Line passing through the point (",int(xp),", ",int(yp),", ",int(zp),") and parallel to the vector (",int(xv),", ",int(yv),", ",int(zv),")", sep="")
     a = math.pow(xv, 2) + math.pow(yv, 2) + math.pow(zv, 2)
     x_2 = 2 * xp * zv
     y_2 = 2 * yp * yv
@@ -25,25 +48,32 @@ def sphere() :
 
     if a == 0 :
         sys.exit(84)
+    
+    delta = math.pow(_b, 2) - 4 * a * _c
+    result(delta, a, _b)
+        
 
 def cylinder() :
     print("Cylinder of radius", p)
+    print("Line passing through the point (",int(xp),", ",int(yp),", ",int(zp),") and parallel to the vector (",int(xv),", ",int(yv),", ",int(zv),")", sep="")
     a = math.pow(xv, 2) + math.pow(yv, 2)
     x_2 = 2 * xp * zv
     y_2 = 2 * yp * yv
     z_2 = 2 * zp * zv
     _b = x_2 + y_2 + z_2
     _c = math.pow(xp, 2) + math.pow(yp, 2) - math.pow(p, 2)
+    delta = math.pow(_b, 2) - 4 * a * _c
+    result(delta, a, _b)
     if a == 0 :
         if zv == 0 :
             sys.exit(84)
         else : 
             if _c == 0 : 
-                print("Line passing through the point (",xp,", ",yp,", ",zp,") and parallel to the vector (",xv,", ",yv,", ",zv,")", sep="")
                 print("There is an infinite number of intersection points.")
-            else :
-                print("Line passing through the point (",xp,", ",yp,", ",zp,") and parallel to the vector (",xv,", ",yv,", ",zv,")", sep="")
-                print("No intersection point.")
+
+def cone() :
+    print("Cone with a",int(p) ,"degree angle")
+    print("Line passing through the point (",int(xp),", ",int(yp),", ",int(zp),") and parallel to the vector (",int(xv),", ",int(yv),", ",int(zv),")", sep="")
 
 if not len(sys.argv) > 1:
     sys.exit(84)
@@ -51,7 +81,7 @@ if opt == 1 :
     sphere()
 elif opt == 2 :
     cylinder()
-    ## elif args.flag == 3 :
-    ## cone()       
+elif opt == 3 :
+    cone()       
 else :
     sys.exit(84)

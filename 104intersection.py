@@ -4,16 +4,15 @@ import argparse
 import sys
 import math
 
-opt = int(sys.argv[1])
-xp = float(sys.argv[2])
-yp = float(sys.argv[3])
-zp = float(sys.argv[4])
-xv = float(sys.argv[5])
-yv = float(sys.argv[6])
-zv = float(sys.argv[7])
-p = float(sys.argv[8])
     
 def result(delta, a, _b) :
+    xp = float(sys.argv[2])
+    yp = float(sys.argv[3])
+    zp = float(sys.argv[4])
+    xv = float(sys.argv[5])
+    yv = float(sys.argv[6])
+    zv = float(sys.argv[7])
+
     if delta < 0 :
         print("No intersection point.")
     elif delta == 0 :
@@ -37,6 +36,14 @@ def result(delta, a, _b) :
         print("({0:.3f}, {1:.3f}, {2:.3f})".format(xx, yy, zz))
 
 def sphere() :
+    xp = float(sys.argv[2])
+    yp = float(sys.argv[3])
+    zp = float(sys.argv[4])
+    xv = float(sys.argv[5])
+    yv = float(sys.argv[6])
+    zv = float(sys.argv[7])
+    p = float(sys.argv[8])
+
     print("Sphere of radius", int(p))
     print("Line passing through the point (",int(xp),", ",int(yp),", ",int(zp),") and parallel to the vector (",int(xv),", ",int(yv),", ",int(zv),")", sep="")
     a = math.pow(xv, 2) + math.pow(yv, 2) + math.pow(zv, 2)
@@ -48,12 +55,20 @@ def sphere() :
 
     if a == 0 :
         sys.exit(84)
-    
+
     delta = (_b * _b) - (4 * a * _c)
     result(delta, a, _b)
         
 
 def cylinder() :
+    xp = float(sys.argv[2])
+    yp = float(sys.argv[3])
+    zp = float(sys.argv[4])
+    xv = float(sys.argv[5])
+    yv = float(sys.argv[6])
+    zv = float(sys.argv[7])
+    p = float(sys.argv[8])
+
     print("Cylinder of radius", int(p))
     print("Line passing through the point (",int(xp),", ",int(yp),", ",int(zp),") and parallel to the vector (",int(xv),", ",int(yv),", ",int(zv),")", sep="")
     a = math.pow(xv, 2) + math.pow(yv, 2)
@@ -71,6 +86,14 @@ def cylinder() :
             print("There is an infinite number of intersection points.")
 
 def cone() :
+    xp = float(sys.argv[2])
+    yp = float(sys.argv[3])
+    zp = float(sys.argv[4])
+    xv = float(sys.argv[5])
+    yv = float(sys.argv[6])
+    zv = float(sys.argv[7])
+    p = float(sys.argv[8])
+
     print("Cone with a",int(p) ,"degree angle")
     print("Line passing through the point (",int(xp),", ",int(yp),", ",int(zp),") and parallel to the vector (",int(xv),", ",int(yv),", ",int(zv),")", sep="")
     radian = (math.pi / 2) - (p * math.pi) / 180.0
@@ -81,14 +104,26 @@ def cone() :
     delta = (_b * _b) - (4 * a * _c)
     result(delta, a, _b)
 
-if not len(sys.argv) > 7:
+parser = argparse.ArgumentParser(description='Process encryption and decryption.')
+parser.add_argument('opt', type = int, help='surface option: 1 for a sphere, 2 for a cylinder, 3 for a cone')
+parser.add_argument('xp', type = int)
+parser.add_argument('yp', type = int)
+parser.add_argument('zp', type = int)
+parser.add_argument('xv', type = int)
+parser.add_argument('yv', type = int)
+parser.add_argument('zv', type = int)
+parser.add_argument('p', type = int, help='parameter: radius of the sphere, radius of the cylinder, or angle formed by the cone and the Z-axis')
+args = parser.parse_args()
+
+if len(sys.argv) != 9 :
     sys.exit(84)
-if opt == 1 :
+
+if args.opt == 1 and args.p > 0 and args.p != 90:
     sphere()
-elif opt == 2 :
+elif args.opt == 2 and args.p > 0 and args.p != 90:
     cylinder()
-elif opt == 3 :
-    if p != 0 or p != 90 :
+elif args.opt == 3 :
+    if args.p > 0 or args.p != 90 :
         cone()
     else :
         sys.exit(84)

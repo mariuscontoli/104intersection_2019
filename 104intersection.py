@@ -77,7 +77,7 @@ def cone() :
     tan_calc = math.pow(math.tan(radian), 2)
     a = tan_calc * (math.pow(xv, 2) + math.pow(yv, 2)) - math.pow(zv, 2)
     _b = tan_calc * (2 * xp * xv + 2 * yp * yv) - 2 * zp * zv
-    _c = tan_calc * (math.pow(xp, 2) + math.pow(yp, 2)) - math.pow(zp, 2) 
+    _c = tan_calc * (math.pow(xp, 2) + math.pow(yp, 2)) - math.pow(zp, 2)
     delta = (_b * _b) - (4 * a * _c)
     result(delta, a, _b)
 
@@ -88,6 +88,9 @@ if opt == 1 :
 elif opt == 2 :
     cylinder()
 elif opt == 3 :
-    cone()       
+    if p != 0 or p != 90 :
+        cone()
+    else :
+        sys.exit(84)
 else :
     sys.exit(84)

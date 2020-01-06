@@ -4,7 +4,6 @@ import argparse
 import sys
 import math
 
-    
 def result(delta, a, _b) :
     xp = float(sys.argv[2])
     yp = float(sys.argv[3])
@@ -107,6 +106,18 @@ def cone() :
 if len(sys.argv) != 9 :
     sys.exit(84)
 
+try :
+    opt = int(sys.argv[1])
+    xp = int(sys.argv[2])
+    yp = int(sys.argv[3])
+    zp = int(sys.argv[4])
+    xv = int(sys.argv[5])
+    yv = int(sys.argv[6])
+    zv = int(sys.argv[7])
+    p = int(sys.argv[8])
+except ValueError :
+    sys.exit(84)
+
 parser = argparse.ArgumentParser(description='Process encryption and decryption.')
 parser.add_argument('opt', type = int, help='surface option: 1 for a sphere, 2 for a cylinder, 3 for a cone')
 parser.add_argument('xp', type = int)
@@ -117,6 +128,7 @@ parser.add_argument('yv', type = int)
 parser.add_argument('zv', type = int)
 parser.add_argument('p', type = int, help='parameter: radius of the sphere, radius of the cylinder, or angle formed by the cone and the Z-axis')
 args = parser.parse_args()
+
 
 if args.opt == 1 and args.p > 0 and args.p != 90:
     sphere()

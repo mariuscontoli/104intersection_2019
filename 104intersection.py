@@ -104,6 +104,9 @@ def cone() :
     delta = (_b * _b) - (4 * a * _c)
     result(delta, a, _b)
 
+if len(sys.argv) != 9 :
+    sys.exit(84)
+    
 parser = argparse.ArgumentParser(description='Process encryption and decryption.')
 parser.add_argument('opt', type = int, help='surface option: 1 for a sphere, 2 for a cylinder, 3 for a cone')
 parser.add_argument('xp', type = int)
@@ -114,9 +117,6 @@ parser.add_argument('yv', type = int)
 parser.add_argument('zv', type = int)
 parser.add_argument('p', type = int, help='parameter: radius of the sphere, radius of the cylinder, or angle formed by the cone and the Z-axis')
 args = parser.parse_args()
-
-if len(sys.argv) != 9 :
-    sys.exit(84)
 
 if args.opt == 1 and args.p > 0 and args.p != 90:
     sphere()

@@ -106,7 +106,7 @@ def cone() :
 
 if len(sys.argv) != 9 :
     sys.exit(84)
-    
+
 parser = argparse.ArgumentParser(description='Process encryption and decryption.')
 parser.add_argument('opt', type = int, help='surface option: 1 for a sphere, 2 for a cylinder, 3 for a cone')
 parser.add_argument('xp', type = int)
@@ -123,7 +123,7 @@ if args.opt == 1 and args.p > 0 and args.p != 90:
 elif args.opt == 2 and args.p > 0 and args.p != 90:
     cylinder()
 elif args.opt == 3 :
-    if args.p > 0 or args.p != 90 :
+    if args.p > 0 and args.p <= 90 :
         cone()
     else :
         sys.exit(84)
